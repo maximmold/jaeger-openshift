@@ -45,7 +45,7 @@ metadata:
     name: jaeger-infra
     jaeger-infra: jaeger-template-all-in-one
 objects:
-- apiVersion: extensions/v1beta1
+- apiVersion: v1
   kind: Deployment
   metadata:
     name: ${JAEGER_SERVICE_NAME}
@@ -79,6 +79,7 @@ objects:
                   protocol: TCP
                 - containerPort: 9411
                   protocol: TCP
+                - containerPort: 5778
               readinessProbe:
                 httpGet:
                   path: "/"
@@ -145,6 +146,10 @@ objects:
       port: 6832
       protocol: UDP
       targetPort: 6832
+    - name: agent-sampler-manager
+      port: 5778
+      protocol: TCP
+      targetPort: 5778
     clusterIP: None
     selector:
       jaeger-infra: jaeger-pod
