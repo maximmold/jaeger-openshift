@@ -80,6 +80,7 @@ objects:
                 - containerPort: 9411
                   protocol: TCP
                 - containerPort: 5778
+                  protocol: TCP
               readinessProbe:
                 httpGet:
                   path: "/"
